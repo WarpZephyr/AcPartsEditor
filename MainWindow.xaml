@@ -1,0 +1,49 @@
+﻿<Metro:MetroWindow
+    x:Class="AcPartsEditor.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls"
+    mc:Ignorable="d"
+    
+    Title="AcParts Editor"
+    Height="600"
+    Width="1200"
+    BorderThickness="0"
+    
+    ResizeMode="CanResizeWithGrip"
+    WindowTransitionsEnabled="True"
+    WindowStartupLocation="CenterScreen"
+    
+    GlowBrush="{StaticResource Zephyr.Brushes.Window.Glow}"
+    WindowTitleBrush="{StaticResource Zephyr.Brushes.Window.Title}"
+    BorderBrush="{StaticResource Zephyr.Brushes.Window.Border}"
+    Foreground="{StaticResource Zephyr.Brushes.Window.Foreground}"
+    Background="{StaticResource Zephyr.Brushes.Window.Background}">
+
+    <Grid x:Name="MainGrid">
+        <Menu
+            Margin="0,0,0,0"
+            VerticalAlignment="Top"
+            Style="{StaticResource Zephyr.Styles.Menu}">
+            <MenuItem
+                x:Name="MenuFile"
+                Header="File"
+                Style="{StaticResource Zephyr.Styles.TopMenuItem}">
+                <MenuItem
+                    x:Name="MenuOpen"
+                    Header="Open"
+                    Style="{StaticResource Zephyr.Styles.SubMenuItem}"
+                    Template="{DynamicResource Zephyr.Templates.SubMenuItem}">
+                </MenuItem>
+                <MenuItem
+                    x:Name="MenuSave"
+                    Header="Save"
+                    Style="{StaticResource  Zephyr.Styles.SubMenuItem}"
+                    Template="{DynamicResource Zephyr.Templates.SubMenuItem}">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Metro:MetroWindow>
