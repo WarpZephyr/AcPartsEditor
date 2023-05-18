@@ -48,8 +48,19 @@
     <!--  SubMenu  -->
     <!-- Normal -->
     <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Border" Color="#FF3C3232" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.GlyphPanel" Color="#FF312929" po:Freeze="True"/>
     <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Foreground" Color="White" po:Freeze="True"/>
     <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Background" Color="#FF2D1E1E" po:Freeze="True"/>
+    <!-- Highlighted -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Border.Highlighted" Color="#FF3C3232" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.GlyphPanel.Highlighted" Color="#FF312929" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Foreground.Highlighted" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Background.Highlighted" Color="#FF2D1E1E" po:Freeze="True"/>
+    <!-- Disabled -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Border.Disabled" Color="#FF3C3232" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.GlyphPanel.Disabled" Color="#FF312929" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Foreground.Disabled" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.SubMenu.Background.Disabled" Color="#FF2D1E1E" po:Freeze="True"/>
 
     <!--  TopMenuItem  -->
     <!-- Normal -->
@@ -95,4 +106,29 @@
     <SolidColorBrush x:Key="Zephyr.Brushes.SubMenuItem.Foreground.Disabled" Color="#FF3C2727" po:Freeze="True"/>
     <SolidColorBrush x:Key="Zephyr.Brushes.SubMenuItem.Background.Disabled" Color="#FF3C2727" po:Freeze="True"/>
 
+    <!--  Checkmark  -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.Checkmark.Background" Color="Red" po:Freeze="True"/>
+
+    <!--  RightArrow  -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.RightArrow.Background" Color="Red" po:Freeze="True"/>
+
+    <!--  Expander  -->
+    <!-- Normal -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.Expander.Border" Color="#FF211616" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.Expander.Foreground" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.Expander.Background" Color="#FF211616" po:Freeze="True"/>
+
+    <!--  PartButton  -->
+    <!-- Normal -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Foreground" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Background" Color="#FF211616" po:Freeze="True"/>
+    <!-- Pressed -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Foreground.Pressed" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Background.Pressed" Color="#FF2F1616" po:Freeze="True"/>
+    <!-- MouseOver -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Foreground.MouseOver" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Background.MouseOver" Color="#FF2A1616" po:Freeze="True"/>
+    <!-- Disabled -->
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Foreground.Disabled" Color="White" po:Freeze="True"/>
+    <SolidColorBrush x:Key="Zephyr.Brushes.PartButton.Background.Disabled" Color="#FF211616" po:Freeze="True"/>
 </ResourceDictionary>

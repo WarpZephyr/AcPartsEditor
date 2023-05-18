@@ -12,7 +12,7 @@
     TitleCharacterCasing="Normal"
     
     Height="600"
-    Width="1200"
+    Width="1000"
     BorderThickness="0"
     
     ResizeMode="CanResizeWithGrip"
@@ -28,11 +28,22 @@
     NonActiveWindowTitleBrush="{StaticResource Zephyr.Brushes.Window.Title.NonActive}"
 	NonActiveBorderBrush="{StaticResource Zephyr.Brushes.Window.Border.NonActive}">
 
-    <Grid x:Name="MainGrid">
+    <Grid
+        x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
         <Menu
-            Margin="0,0,0,0"
-            VerticalAlignment="Top"
-            Style="{StaticResource Zephyr.Styles.Menu}">
+            x:Name="MainMenu"
+            Style="{StaticResource Zephyr.Styles.Menu}"
+            VerticalAlignment="Center"
+            Grid.ColumnSpan="2"
+            Grid.Row="0">
             <MenuItem
                 x:Name="MenuFile"
                 Header="File"
@@ -41,15 +52,34 @@
                     x:Name="MenuOpen"
                     Header="Open"
                     Style="{StaticResource Zephyr.Styles.SubMenuItem}"
-                    Template="{DynamicResource Zephyr.Templates.SubMenuItem}">
-                </MenuItem>
+                    Template="{DynamicResource Zephyr.Templates.SubMenuItem}"/>
                 <MenuItem
                     x:Name="MenuSave"
                     Header="Save"
-                    Style="{StaticResource  Zephyr.Styles.SubMenuItem}"
-                    Template="{DynamicResource Zephyr.Templates.SubMenuItem}">
-                </MenuItem>
+                    Style="{StaticResource Zephyr.Styles.SubMenuItem}"
+                    Template="{DynamicResource Zephyr.Templates.SubMenuItem}"/>
             </MenuItem>
         </Menu>
+        <ItemsControl
+            x:Name="PartListItemControl"
+            Grid.Column="0"
+            Grid.Row="1"
+            Margin="0,0,10,0">
+            <Expander
+                Header="Heads"
+                Style="{StaticResource Zephyr.Styles.Expander}">
+                <ItemsControl>
+                    <Button Style="{DynamicResource Zephyr.Styles.PartButton}">Head1</Button>
+                    <Button Style="{DynamicResource Zephyr.Styles.PartButton}">Head2</Button>
+                </ItemsControl>
+            </Expander>
+        </ItemsControl>
+        <ItemsControl
+            x:Name="PartStatsItemControl"
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="10,0,0,0">
+            
+        </ItemsControl>
     </Grid>
 </Metro:MetroWindow>

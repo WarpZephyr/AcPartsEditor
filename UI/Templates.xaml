@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:acCtrls="clr-namespace:AcPartsEditor.Controls">
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
 
@@ -56,7 +55,7 @@
                 Placement="Bottom"
                 PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                 VerticalOffset="-2">
-                <acCtrls:ClipBorder
+                <mah:ClipBorder
                     x:Name="Border"
                     Background="{DynamicResource Zephyr.Brushes.TopMenu.Background}"
                     BorderBrush="{DynamicResource Zephyr.Brushes.TopMenu.Border}"
@@ -75,7 +74,7 @@
                             KeyboardNavigation.TabNavigation="Cycle"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </ScrollViewer>
-                </acCtrls:ClipBorder>
+                </mah:ClipBorder>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
@@ -178,7 +177,7 @@
                     Placement="Right"
                     PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                     VerticalOffset="-3">
-                    <acCtrls:ClipBorder
+                    <mah:ClipBorder
                         x:Name="Border"
                         Background="{DynamicResource Zephyr.Brushes.SubMenu.Background}"
                         BorderBrush="{DynamicResource Zephyr.Brushes.SubMenu.Border}"
@@ -197,7 +196,7 @@
                                 KeyboardNavigation.TabNavigation="Cycle"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </ScrollViewer>
-                    </acCtrls:ClipBorder>
+                    </mah:ClipBorder>
                 </Popup>
             </Grid>
         </Grid>
@@ -270,7 +269,7 @@
                 Placement="Bottom"
                 PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                 VerticalOffset="-2">
-                <acCtrls:ClipBorder
+                <mah:ClipBorder
                     x:Name="Border"
                     Background="{DynamicResource Zephyr.Brushes.SubMenu.Background}"
                     BorderBrush="{DynamicResource Zephyr.Brushes.SubMenu.Border}"
@@ -289,7 +288,7 @@
                             KeyboardNavigation.TabNavigation="Cycle"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </ScrollViewer>
-                </acCtrls:ClipBorder>
+                </mah:ClipBorder>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
