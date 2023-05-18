@@ -1,6 +1,382 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Templates/TopMenuItem.xaml" />
-        <ResourceDictionary Source="Templates/SubMenuItem.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+
+    <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
+
+    <Geometry x:Key="Checkmark">M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z</Geometry>
+    <Geometry x:Key="RightArrow">M 0,0 L 4,3.5 L 0,7 Z</Geometry>
+    <Geometry x:Key="DownArrow">M 0,0 L 3.5,4 L 7,0 Z</Geometry>
+    <Geometry x:Key="UpArrow">M 0,4 L 3.5,0 L 7,4 Z</Geometry>
+
+    <!--  TopMenu  -->
+    <ControlTemplate
+        x:Key="Zephyr.Templates.TopMenu"
+        TargetType="{x:Type MenuItem}">
+        <Grid SnapsToDevicePixels="True">
+            <Rectangle x:Name="Bg"
+                       Margin="1"
+                       Fill="{DynamicResource Zephyr.Brushes.TopMenu.Background}"
+                       Stroke="{DynamicResource Zephyr.Brushes.TopMenu.Border}"
+                       StrokeThickness="0"
+                       Height="{TemplateBinding Height}" />
+            <DockPanel>
+                <ContentPresenter x:Name="Icon"
+                                  Margin="4 0 6 0"
+                                  VerticalAlignment="Center"
+                                  ContentSource="Icon"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <Path x:Name="GlyphPanel"
+                      Margin="8 0 0 0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="{StaticResource Checkmark}"
+                      Fill="{DynamicResource MahApps.Brushes.CheckmarkFill}"
+                      FlowDirection="LeftToRight"
+                      Visibility="Collapsed" />
+                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </DockPanel>
+            <Popup x:Name="PART_Popup"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   HorizontalOffset="1"
+                   IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                   Placement="Bottom"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
+                   VerticalOffset="-2">
+                <mah:ClipBorder x:Name="Border"
+                                Background="{DynamicResource Zephyr.Brushes.SubMenu.Background}"
+                                BorderBrush="{DynamicResource Zephyr.Brushes.SubMenu.Border}"
+                                BorderThickness="1"
+                                CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                    <ScrollViewer x:Name="SubMenuScrollViewer"
+                                  CanContentScroll="True"
+                                  Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                        <ItemsPresenter x:Name="ItemsPresenter"
+                                        Margin="0"
+                                        Grid.IsSharedSizeScope="True"
+                                        KeyboardNavigation.DirectionalNavigation="Cycle"
+                                        KeyboardNavigation.TabNavigation="Cycle"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </ScrollViewer>
+                </mah:ClipBorder>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                <Setter TargetName="PART_Popup" Property="PopupAnimation" Value="None" />
+            </Trigger>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="GlyphPanel" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+                <Setter TargetName="Border" Property="Effect" Value="{DynamicResource Zephyr.Effects.SubMenu.Shadow}" />
+                <Setter TargetName="Border" Property="Margin" Value="0 0 6 6" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Border.Highlighted}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Background.Pressed}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Border.Pressed}" />
+            </Trigger>
+            <Trigger Property="IsSubmenuOpen" Value="True">
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Background.Pressed}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Border.Pressed}" />
+                <Setter TargetName="Bg" Property="StrokeThickness" Value="1" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Foreground.Disabled}" />
+                <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource MahApps.Brushes.MenuItem.GlyphPanel.Disabled}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--  SubMenu  -->
+    <ControlTemplate
+        x:Key="Zephyr.Templates.SubMenu"
+        TargetType="{x:Type MenuItem}">
+        <Grid SnapsToDevicePixels="True">
+            <Rectangle x:Name="Bg"
+                       Fill="{DynamicResource Zephyr.Brushes.SubMenu.Background}"
+                       Stroke="{DynamicResource Zephyr.Brushes.SubMenu.Border}"
+                       StrokeThickness="5" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      MinWidth="24"
+                                      SharedSizeGroup="MenuItemIconColumnGroup" />
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+                    <ColumnDefinition Width="17" />
+                </Grid.ColumnDefinitions>
+                <ContentPresenter x:Name="Icon"
+                                  Margin="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  ContentSource="Icon"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <Path x:Name="GlyphPanel"
+                      Margin="5 0 0 0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="{DynamicResource Checkmark}"
+                      Fill="{DynamicResource MahApps.Brushes.CheckmarkFill}"
+                      FlowDirection="LeftToRight"
+                      Visibility="Collapsed" />
+                <ContentPresenter Grid.Column="2"
+                                  Margin="{TemplateBinding Padding}"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <TextBlock Grid.Column="4"
+                           Margin="{TemplateBinding Padding}"
+                           Text="{TemplateBinding InputGestureText}"
+                           Visibility="Collapsed" />
+                <Path Grid.Column="5"
+                      Margin="4 0 0 0"
+                      VerticalAlignment="Center"
+                      Data="{DynamicResource RightArrow}"
+                      Fill="{DynamicResource MahApps.Brushes.RightArrowFill}" />
+            </Grid>
+            <Grid Margin="2 0 1 0">
+                <Popup x:Name="PART_Popup"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       HorizontalOffset="-1"
+                       IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                       Placement="Right"
+                       PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
+                       VerticalOffset="-3">
+                    <mah:ClipBorder x:Name="Border"
+                                    Background="{DynamicResource Zephyr.Brushes.SubMenu.Background}"
+                                    BorderBrush="{DynamicResource Zephyr.Brushes.SubMenu.Border}"
+                                    BorderThickness="0"
+                                    CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <ScrollViewer x:Name="SubMenuScrollViewer"
+                                      CanContentScroll="True"
+                                      Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                            <ItemsPresenter x:Name="ItemsPresenter"
+                                            Margin="0"
+                                            Grid.IsSharedSizeScope="True"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle"
+                                            KeyboardNavigation.TabNavigation="Cycle"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </mah:ClipBorder>
+                </Popup>
+            </Grid>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                <Setter TargetName="PART_Popup" Property="PopupAnimation" Value="None" />
+            </Trigger>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="GlyphPanel" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+                <Setter TargetName="Border" Property="Effect" Value="{DynamicResource Zephyr.Effects.Menu.Shadow}" />
+                <Setter TargetName="Border" Property="Margin" Value="0 0 6 6" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource MahApps.Brushes.MenuItem.SelectionFill}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource MahApps.Brushes.MenuItem.SelectionStroke}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.MenuItem.Foreground.Disabled}" />
+                <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource MahApps.Brushes.MenuItem.GlyphPanel.Disabled}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--  TopMenuItem  -->
+    <ControlTemplate
+        x:Key="Zephyr.Templates.TopMenuItem"
+        TargetType="{x:Type MenuItem}">
+        <Grid SnapsToDevicePixels="True">
+            <Rectangle x:Name="Bg"
+                       Margin="1"
+                       Fill="{DynamicResource Zephyr.Brushes.TopMenuItem.Background}"
+                       Stroke="{DynamicResource Zephyr.Brushes.TopMenuItem.Border}"
+                       StrokeThickness="0" />
+            <DockPanel>
+                <ContentPresenter x:Name="Icon"
+                                  Margin="4 0 6 0"
+                                  VerticalAlignment="Center"
+                                  ContentSource="Icon"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <Path x:Name="GlyphPanel"
+                      Margin="8 0 0 0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="{StaticResource Checkmark}"
+                      Fill="{DynamicResource MahApps.Brushes.CheckmarkFill}"
+                      FlowDirection="LeftToRight"
+                      Visibility="Collapsed" />
+                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </DockPanel>
+            <Popup x:Name="PART_Popup"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   HorizontalOffset="1"
+                   IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                   Placement="Bottom"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
+                   VerticalOffset="-2">
+                <mah:ClipBorder x:Name="Border"
+                                Background="{DynamicResource Zephyr.Brushes.SubMenu.Background}"
+                                BorderBrush="{DynamicResource Zephyr.Brushes.SubMenu.Border}"
+                                BorderThickness="1"
+                                CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                    <ScrollViewer x:Name="SubMenuScrollViewer"
+                                  CanContentScroll="True"
+                                  Style="{DynamicResource Zephyr.Styles.MenuScrollViewer}">
+                        <ItemsPresenter x:Name="ItemsPresenter"
+                                        Margin="0"
+                                        Grid.IsSharedSizeScope="True"
+                                        KeyboardNavigation.DirectionalNavigation="Cycle"
+                                        KeyboardNavigation.TabNavigation="Cycle"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </ScrollViewer>
+                </mah:ClipBorder>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                <Setter TargetName="PART_Popup" Property="PopupAnimation" Value="None" />
+            </Trigger>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="GlyphPanel" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+                <Setter TargetName="Border" Property="Effect" Value="{DynamicResource Zephyr.Effects.Menu.Shadow}" />
+                <Setter TargetName="Border" Property="Margin" Value="0 0 6 6" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Foreground.Highlighted}"/>
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Background.Highlighted}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Border.Highlighted}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Background.Pressed}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Border.Pressed}" />
+            </Trigger>
+            <Trigger Property="IsSubmenuOpen" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Foreground.Pressed}"/>
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Background.Pressed}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Border.Pressed}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.Foreground.Disabled}" />
+                <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource Zephyr.Brushes.TopMenuItem.GlyphPanel.Disabled}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--  SubMenuItem  -->
+    <ControlTemplate
+        x:Key="Zephyr.Templates.SubMenuItem"
+        TargetType="{x:Type MenuItem}">
+        <Grid SnapsToDevicePixels="True">
+            <Rectangle
+                x:Name="Bg"
+                Fill="{TemplateBinding Background}"
+                Stroke="{TemplateBinding BorderBrush}"
+                StrokeThickness="2" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="24" SharedSizeGroup="MenuItemIconColumnGroup" />
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+                    <ColumnDefinition Width="17" />
+                </Grid.ColumnDefinitions>
+                <ContentPresenter
+                    x:Name="Icon"
+                    Margin="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    ContentSource="Icon"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <Path
+                    x:Name="GlyphPanel"
+                    Margin="5 0 0 0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="{DynamicResource Checkmark}"
+                    Fill="{DynamicResource MahApps.Brushes.CheckmarkFill}"
+                    FlowDirection="LeftToRight"
+                    Visibility="Collapsed" />
+                <ContentPresenter
+                    Grid.Column="2"
+                    Margin="{TemplateBinding Padding}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <TextBlock
+                    Grid.Column="4"
+                    Margin="{TemplateBinding Padding}"
+                    Text="{TemplateBinding InputGestureText}" />
+            </Grid>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="GlyphPanel" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Border.Highlighted}" />
+                <Setter Property="Background" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Background.Highlighted}" />
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Foreground.Highlighted}" />
+                <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.GlyphPanel.Highlighted}" />
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Background.Highlighted}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Border.Highlighted}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="BorderBrush" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Border.Disabled}" />
+                <Setter Property="Background" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Background.Disabled}" />
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Foreground.Disabled}" />
+                <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.GlyphPanel.Disabled}" />
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Background.Disabled}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Border.Disabled}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Border.Pressed}" />
+                <Setter Property="Background" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Background.Pressed}" />
+                <Setter Property="Foreground" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Foreground.Pressed}" />
+                <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.GlyphPanel.Pressed}" />
+                <Setter TargetName="Bg" Property="Fill" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Background.Pressed}" />
+                <Setter TargetName="Bg" Property="Stroke" Value="{DynamicResource Zephyr.Brushes.SubMenuItem.Border.Pressed}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
 </ResourceDictionary>

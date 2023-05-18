@@ -1,0 +1,35 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    mc:Ignorable="po">
+    
+    <DropShadowEffect x:Key="Zephyr.Effects.Menu.Shadow"
+                      x:Shared="False"
+                      BlurRadius="4"
+                      Direction="315"
+                      Opacity="0.3"
+                      ShadowDepth="2"
+                      Color="{DynamicResource Zephyr.Colors.Menu.Shadow}"
+                      po:Freeze="True" />
+
+    <DropShadowEffect x:Key="Zephyr.Effects.SubMenu.Shadow"
+                      x:Shared="False"
+                      BlurRadius="4"
+                      Direction="315"
+                      Opacity="0.3"
+                      ShadowDepth="2"
+                      Color="{DynamicResource Zephyr.Colors.SubMenu.Shadow}"
+                      po:Freeze="True" />
+
+    <DropShadowEffect x:Key="Zephyr.Effects.ToolTip.Shadow"
+                      x:Shared="False"
+                      BlurRadius="4"
+                      Direction="315"
+                      Opacity="0.3"
+                      ShadowDepth="2"
+                      Color="{DynamicResource Zephyr.Colors.ToolTip.Shadow}"
+                      po:Freeze="True" />
+    
+</ResourceDictionary>

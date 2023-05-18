@@ -1,8 +1,29 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Colors/Window.xaml" />
-        <ResourceDictionary Source="Colors/Menu.xaml" />
-        <ResourceDictionary Source="Colors/TopMenuItem.xaml" />
-        <ResourceDictionary Source="Colors/SubMenuItem.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    mc:Ignorable="po">
+    
+    <Color x:Key="Zephyr.Colors.Menu.Shadow"
+           A="255"
+           B="0"
+           G="0"
+           R="0"
+           po:Freeze="True"/>
+
+    <Color x:Key="Zephyr.Colors.SubMenu.Shadow"
+           A="255"
+           B="0"
+           G="0"
+           R="0"
+           po:Freeze="True"/>
+
+    <Color x:Key="Zephyr.Colors.ToolTip.Shadow"
+           A="255"
+           B="0"
+           G="0"
+           R="0"
+           po:Freeze="True"/>
+
 </ResourceDictionary>
