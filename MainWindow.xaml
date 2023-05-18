@@ -23,7 +23,10 @@
     WindowTitleBrush="{StaticResource Zephyr.Brushes.Window.Title}"
     BorderBrush="{StaticResource Zephyr.Brushes.Window.Border}"
     Foreground="{StaticResource Zephyr.Brushes.Window.Foreground}"
-    Background="{StaticResource Zephyr.Brushes.Window.Background}">
+    Background="{StaticResource Zephyr.Brushes.Window.Background}"
+    NonActiveGlowBrush="{StaticResource Zephyr.Brushes.Window.Glow.NonActive}"
+    NonActiveWindowTitleBrush="{StaticResource Zephyr.Brushes.Window.Title.NonActive}"
+	NonActiveBorderBrush="{StaticResource Zephyr.Brushes.Window.Border.NonActive}">
 
     <Grid x:Name="MainGrid">
         <Menu

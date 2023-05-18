@@ -14,6 +14,15 @@
                       Color="{DynamicResource Zephyr.Colors.Menu.Shadow}"
                       po:Freeze="True" />
 
+    <DropShadowEffect x:Key="Zephyr.Effects.TopMenu.Shadow"
+                      x:Shared="False"
+                      BlurRadius="4"
+                      Direction="315"
+                      Opacity="0.3"
+                      ShadowDepth="2"
+                      Color="{DynamicResource Zephyr.Colors.SubMenu.Shadow}"
+                      po:Freeze="True" />
+
     <DropShadowEffect x:Key="Zephyr.Effects.SubMenu.Shadow"
                       x:Shared="False"
                       BlurRadius="4"
@@ -31,5 +40,4 @@
                       ShadowDepth="2"
                       Color="{DynamicResource Zephyr.Colors.ToolTip.Shadow}"
                       po:Freeze="True" />
-    
 </ResourceDictionary>
